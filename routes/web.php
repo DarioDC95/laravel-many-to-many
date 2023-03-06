@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Artisan;
@@ -48,6 +49,12 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
         Artisan::call('db:seed', ['--class' => 'TypeSeeder']);
         return redirect()->route('admin.types.index')->with('message', 'Le Tipologie sono state create correttamente');
     })->name('seederType');
+    Route::resource('technologies', TechnologyController::class)->parameters(['technology' => 'type:slug']);
+    // PROVA DI LANCIO DI UN COMANDO DI SEEDER DALLA VIEW di TECHNOLOGY
+    Route::get('/fillTechnology', function(){
+        Artisan::call('db:seed', ['--class' => 'TechnologySeeder']);
+        return redirect()->route('admin.technologies.index')->with('message', 'Le Tecnologie sono state create correttamente');
+    })->name('seederTechnology');
 });
 
 Route::middleware('auth')->group(function () {
