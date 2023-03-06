@@ -69,8 +69,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        dd($project->technologies);
-        
         return view('admin.projects.show', compact('project'));
     }
 
@@ -105,7 +103,7 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        if($form_data['technologies']) {
+        if($request->has('technologies')) {
             $project->technologies()->sync($form_data['technologies']);
         }
 

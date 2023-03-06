@@ -43,9 +43,10 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
+                                <label class="control-label ">Tecnologie</label>
                                 @foreach ($technologies as $technology) 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology">
+                                    <div class="form-check @error('technologies') is-invalid @enderror">
+                                        <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="technology">
                                             {{ $technology->name }}
                                         </label>

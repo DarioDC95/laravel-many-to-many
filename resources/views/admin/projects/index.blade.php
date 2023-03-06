@@ -51,7 +51,7 @@
                                             @forelse ($project->technologies as $technology)
                                                 {{ $technology->name }}<br>
                                             @empty
-                                                Nessuna Tecnologia disponibile
+                                                NON disponibile
                                             @endforelse
                                         </td>
                                         <td>{{ $project->title }}</td>
