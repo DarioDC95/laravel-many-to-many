@@ -49,7 +49,7 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
         Artisan::call('db:seed', ['--class' => 'TypeSeeder']);
         return redirect()->route('admin.types.index')->with('message', 'Le Tipologie sono state create correttamente');
     })->name('seederType');
-    Route::resource('technologies', TechnologyController::class)->parameters(['technology' => 'type:slug']);
+    Route::resource('technologies', TechnologyController::class)->parameters(['technologies' => 'technology:slug']);
     // PROVA DI LANCIO DI UN COMANDO DI SEEDER DALLA VIEW di TECHNOLOGY
     Route::get('/fillTechnology', function(){
         Artisan::call('db:seed', ['--class' => 'TechnologySeeder']);

@@ -8,7 +8,7 @@
                     <div class="col-12">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h2>Elenco Tipologie</h2>
+                                <h2>Elenco Tecnologie</h2>
                             </div>
                             <div>
                                 <a href="{{ route('admin.technologies.create') }}" class="btn btn-primary">Aggiungi una nuova Tecnologia</a>

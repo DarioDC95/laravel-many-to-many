@@ -96,7 +96,7 @@ class TypeController extends Controller
 
         $type->update($form_data);
 
-        return redirect()->route('admin.types.index')->with('message', 'Il Progetto è stato modificato correttamente');
+        return redirect()->route('admin.types.index')->with('message', 'La Tipologia è stata modificata correttamente');
     }
 
     /**
