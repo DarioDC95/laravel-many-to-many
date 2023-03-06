@@ -13,7 +13,7 @@
                         <p>{{ $type->slug }}</p>
                     </div>
                     <div class="col-12 mb-5">
-                        <div class="row">
+                        <div class="row gy-4">
                             @forelse ( $type->projects as $project )
                                 <div class="col-4">
                                     <div class="card h-100">

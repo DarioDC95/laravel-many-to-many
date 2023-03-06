@@ -42,6 +42,19 @@
                                     @endforeach
                                 @enderror
                             </div>
+                            <div class="mb-4">
+                                @foreach ($technologies as $technology) 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology">
+                                        <label class="form-check-label" for="technology">
+                                            {{ $technology->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @error('technologies')
+                                    {{ session('message') }}
+                                @enderror
+                            </div>
                             <div class="form-group mb-5">
                                 <label class="control-label">Contenuto</label>
                                 <textarea type="text" class="form-control" placeholder="Inserisci una nuova Descrizione" id="content" name="content">{{ old('content', $project) }}</textarea>

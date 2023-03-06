@@ -31,6 +31,7 @@
                             <thead>
                                 <th>id</th>
                                 <th>Tipologia</th>
+                                <th>Tecnologia</th>
                                 <th>Titolo</th>
                                 <th>Slug</th>
                                 <th>Azioni</th>
@@ -46,22 +47,31 @@
                                                 <span class="text-secondary">NON disponibile</span>
                                             @endif
                                         </td>
+                                        <td>
+                                            @forelse ($project->technologies as $technology)
+                                                {{ $technology->name }}<br>
+                                            @empty
+                                                Nessuna Tecnologia disponibile
+                                            @endforelse
+                                        </td>
                                         <td>{{ $project->title }}</td>
                                         <td>{{ $project->slug }}</td>
-                                        <td class="d-flex">
-                                            <div>
-                                                <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                            </div>
-                                            <div class="mx-1">
-                                                <a href="{{ route('admin.projects.edit', $project->slug) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                            </div>
-                                            <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
-                                            @csrf 
-                                            @method('DELETE')
+                                        <td>
+                                            <div class="d-flex">
                                                 <div>
-                                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                                    <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
                                                 </div>
-                                            </form>
+                                                <div class="mx-1">
+                                                    <a href="{{ route('admin.projects.edit', $project->slug) }}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                </div>
+                                                <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
+                                                @csrf 
+                                                @method('DELETE')
+                                                    <div>
+                                                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     @empty 
