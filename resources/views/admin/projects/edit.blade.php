@@ -44,13 +44,24 @@
                             </div>
                             <div class="mb-4">
                                 <label class="control-label ">Tecnologie</label>
-                                @foreach ($technologies as $technology) 
-                                    <div class="form-check @error('technologies') is-invalid @enderror">
-                                        <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+                                @foreach ($technologies as $technology)
+                                    @if ($errors->any())
+                                        {{-- PRIMO CASO: --}}
+                                        {{-- Ci sono degli errori di validazione quindi bisogna ricaricare i tag selezionati tramite la funzione old() --}}
+                                        <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology" {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="technology">
                                             {{ $technology->name }}
                                         </label>
-                                    </div>
+                                    @else
+                                        {{-- SECONDO CASO: --}}
+                                        {{-- Se NON ci sono errori di validazione significa che la pagina è stata aperta per la prima volta pertanto bisogna recuperare i tag in relazione con il post --}}
+                                        <div class="form-check @error('technologies') is-invalid @enderror">
+                                            <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="technology" {{ $project->technologies->contains($technology) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="technology">
+                                                {{ $technology->name }}
+                                            </label>
+                                        </div>
+                                    @endif 
                                 @endforeach
                                 @error('technologies')
                                     {{ session('message') }}

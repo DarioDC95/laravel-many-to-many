@@ -32,8 +32,9 @@ class ProjectController extends Controller
     {
         // PRENDO TUTTE LE TIPOLOGIA
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -56,6 +57,10 @@ class ProjectController extends Controller
         $newProject->fill($form_data); */
         // QUESTE DUE OPERAZIONI LE POSSO SVOLGERE IN UN UNICO METODO:
         $newProject = Project::create($form_data);
+
+        if($request->has('technologies')) {
+            $newProject->technologies()->attach($form_data['technologies']);
+        }
 
         return redirect()->route('admin.projects.index')->with('message', 'Il Progetto è stato aggiunto correttamente');
 
@@ -118,6 +123,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // PRIMA COSA DA FARE IN ASSOLUTO E' CANCELLARE I RECORD RELATIVI DALLA TABELLA PONTE, A RISCHIO DI CORROMPERE IL DATABASE. Ciò non serve se si è provveduto con "cascedeOnDelete" nella creazione della tabella.
+        // $project->technologies()->sync([]);
+
+        // DOPO DI CHE CANCELLIAMO L'ELEMENTO
         $project->delete();
 
         return redirect()->route('admin.projects.index')->with('message', 'Il Progetto è stato eliminato correttamente');
