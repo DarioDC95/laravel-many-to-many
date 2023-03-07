@@ -52,7 +52,7 @@
                                     </div>
                                 @endforeach
                                 @error('technologies')
-                                    {{ session('message') }}
+                                    {{ $message }}
                                 @enderror
                             </div>
                             <div class="form-group mb-5">
